@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="hu">
+	<head>
+		<meta charset="utf-8" />
+		<title>Termékfeltöltés</title>
+		<link href="CSS/style_upload.css" rel="stylesheet" />
+		<script src="JS/upload_item.js"></script>
+	</head>
+	<body class="wrapper">
+		<form id="form">
+			<h1>Termékfeltöltés</h1>
+			<div class="field">
+				<label for="name">Terméknév:</label>
+				<input
+					type="text"
+					id="name"
+					maxlength="100"
+					autocomplete="off"
+					required
+					autofocus
+				/>
+			</div>
+
+			<div class="field">
+				<label for="quantity">Mennyiség:</label>
+				<input
+					type="number"
+					id="quantity"
+					min="1"
+					max="9999"
+					autocomplete="off"
+					required
+				/>
+			</div>
+
+			<div class="field">
+				<label for="itemID">Cikkszám:</label>
+				<input
+					type="text"
+					id="itemID"
+					maxlength="9"
+					autocomplete="off"
+					required
+				/>
+			</div>
+
+			<div class="field">
+				<label for="price">Ár:</label>
+				<input
+					type="number"
+					id="price"
+					min="1"
+					max="999999"
+					autocomplete="off"
+					required
+				/>
+			</div>
+
+			<div class="field">
+				<label for="description">Termékleírás:</label>
+				<input
+					type="text"
+					id="description"
+					maxlength="500"
+					autocomplete="off"
+					required
+				/>
+			</div>
+
+			<div class="buttons">
+				<button id="button-submit">
+					FELTÖLT
+					<span class="tooltip"
+						>Az űrlapon szereplő termék hozzáadása a local
+						storage-hoz</span
+					>
+				</button>
+
+				<button id="button-reset" type="reset">
+					VISSZAÁLLÍT
+					<span class="tooltip"
+						>Az űrlap visszaállítása alaphelyzetbe</span
+					>
+				</button>
+
+				<button id="button-delete">
+					TÖRÖL
+					<span class="tooltip"
+						>A teljes local storage tartalmának törlése</span
+					>
+				</button>
+
+				<button id="button-list">
+					LISTÁZ
+					<span class="tooltip"
+						>A local storage tartalmának kilistázása a
+						konzolra</span
+					>
+				</button>
+			</div>
+		</form>
+	</body>
+</html>
