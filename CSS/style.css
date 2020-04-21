@@ -256,8 +256,9 @@ footer{
 .cart{
     background-color: rgba(0, 0, 0, 0);
     width:90%;
+    max-width:850px;
     display:flex;
-    justify-content:center;
+    justify-content:space-around;
     flex-wrap:wrap;
     margin: 50px auto;
     padding:50px 0px;
@@ -267,41 +268,50 @@ footer{
     max-width:850px;
     display:flex;
     justify-content:flex-start;
-    border-bottom: 4px solid grey;
+    border-bottom: 4px solid white;
     margin: 0 auto;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
 /* Fejléc*/
 .cart-name{
-    width:37%;
+    width:20%;
 }
 .cart-id{
-    width:12%;
+    width:20%;
 }
 .cart-price{
-    width:12%;
+    width:20%;
     display:flex;
 }
 .cart-qt{
-    width:27%;
+    width:20%;
     display:flex;
 }
 .cart-total{
-    width:12%;
+    width:20%;
     display:flex;
 }
 .cartelements{
     width: 100%;
-    max-width: 850px;
-    display:flex;
-    justify-content:flex-start;
+    display:block;
     margin: 0 auto;
 }
-.cartelements:nth-of-type(even){
-    background-color: rgba(255, 255, 255,0.5);
+.carttermek:nth-of-type(even){
+    background-color:rgba(0, 129, 168, 0.5);
 }
-
+.carttermek:nth-of-type(odd){
+    background-color:rgba(143, 159, 175, 0.5);
+}
+.carttermek{
+    width:100%;
+    max-width: 850px;
+    display:flex;
+    justify-content: space-around;
+    align-items:center;
+    padding: 10px 0;
+    border-bottom: 1px solid lightgray;
+}
 
 
 

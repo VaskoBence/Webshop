@@ -1,5 +1,23 @@
 $(function(){
+
+    if(window.location.href.indexOf("index.html") >= 0){   
+    }
     
+    if(window.location.href.indexOf("cart.html") >= 0){
+        let cartstorage = localStorage.getItem("CartList");
+        cartstorage = JSON.parse(cartstorage);
+        let cartelements = $('.cartelements');
+        if(cartstorage && cartelements){
+            cartelements.innerHTML = '';
+            Object.values(cartstorage).map(cart =>  {
+                cartelements.innerHTML +="<div class='carttermek'> <div class='cart-name'>"+cart.name+"</div> <div class ='cart-id'>"+cart.itemID+"</div> <div class='cart-price'>"+cart.price+" Ft</div> <div class='cart-qt'>"+cart.quantity+" </div> <div class='cart-total'>"+(cart.quantity*cart.price)+"</div></div>";
+            })
+        }
+        console.log(cartelements.innerHTML);
+        $('.cartelements').html(cartelements.innerHTML);
+        
+    }
+
     let storage = localStorage.getItem("ItemList");
     let items;
     // Check if the local storage is empty
@@ -9,8 +27,13 @@ $(function(){
     let cart;
     //ellenőrzi, hogy üres-e a local storage
     cartstorage == null ? (cart = []) : (cart = JSON.parse(cartstorage));
-  
- 
+    
+    //test
+
+
+    localStorage.setItem("CartList", JSON.stringify(cart));
+    console.table(cart);
+
     // tooltip a túl hosszú címeknek
     $('.termek h2').on('mouseover',function(){
         if($(this)[0].offsetWidth < $(this)[0].scrollWidth){
@@ -66,12 +89,16 @@ $(function(){
             alert('Ez így nem fog működni! ☺');
         }
         else{
+            console.log();
+            let qt = parseInt($(this).prev().val());
             let index = $(this).parent().data('id');
             console.log(index);
-            cart.push(items[index]);
-            console.table([cart[index]]);
-            localStorage.setItem("CartList", JSON.stringify(cart));
-            localStorage.clear();
+            //cart.push(items[index]);
+            //localStorage.setItem("CartList", JSON.stringify(cart));
+            //cart[index].quantity = qt;
+           
+           
         }
     })
 });
+
