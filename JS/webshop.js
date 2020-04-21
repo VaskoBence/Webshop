@@ -1,30 +1,16 @@
 $(function(){
-    let x = 0;
-    let myCart=[];
-    let kosar = {
+    
+    let storage = localStorage.getItem("ItemList");
+    let items;
+    // Check if the local storage is empty
+    storage == null ? (items = []) : (items = JSON.parse(storage));
 
-            nev:"",
-            ar:0,
-            leiras:"",
-            raktaron:0,
-            kosarban:0
-    }
-    $(".kosar").on('click','.kosardel',function(){
-        $(this).parent().parent().remove();
-        x--;
-        $('.kosar').find('p').text('('+(x)+')');
-    });
-
-    $("main").on('click','.megvesz',function(){
-        let nev =$(this).prev().prev().html();
-        let ar =$(this).prev().html();
-        x++;
-        $(".kosar").find('p').text('('+(x)+')');
-        $(".kosardropdown").append("<div><ul><li></li><li></li><li class='kosardel'>X</li>");
-       $(".kosardropdown").children().last('div').find('li').first().html(nev);
-       $(".kosardropdown").children().last('div').find('li').first().next().html(ar);
-    });
-
+    let cartstorage = localStorage.getItem("CartList");
+    let cart;
+    //ellenőrzi, hogy üres-e a local storage
+    cartstorage == null ? (cart = []) : (cart = JSON.parse(cartstorage));
+  
+ 
     // tooltip a túl hosszú címeknek
     $('.termek h2').on('mouseover',function(){
         if($(this)[0].offsetWidth < $(this)[0].scrollWidth){
@@ -37,44 +23,55 @@ $(function(){
         $(this).find('.tooltip').css('visibility','hidden');
     });
 
-
-    //mennyiség kiválasztása
-    $('.termek').on('click','.minusqt',function(){
-        let x= $(this).next().attr('value');
-        min = $(this).next().attr('min');
-            if(x-1<min){
-             $(this).next().attr('value',min);
-            }
-            else{
-                $(this).next().attr('value',x-1);
-            }
-    });
-    $('.termek').on('click','.plusqt',function(){
-        let x= parseInt($(this).prev().attr('value'));
-        max = $(this).prev().attr('max');
-            if(x+1>max){
-                $(this).prev().attr('value',max);
-            }
-            else{
-                $(this).prev().attr('value',x+1);
-            }
-    })
-    //termék megvétele
-    $('.termek').on('click','.megvesz',function(){
-        console.log( $(this).prev().prev().text().splice());
-        let nev = $(this).prev().prev().prev().prev().text();
-        let ar = $(this).prev().prev().prev().text();
-        myCart.push(new kosar('',12000,'',2,5));
-        console.log(myCart[myCart.length-1]);
-        myCart[myCart.length-1]
-    })
-    //termék hozzáadása
-    $('.termekplusz').on('click','termekplusz img',function(){
-        
-    });
-    $('.termek input').on('change',function(){
-        if($(this).val()>=$(this).attr('max')){
-            $(this).val($(this).attr('max'));
+     /* localStorage.setItem("myCart", JSON.stringify(cartItems));
+    function displayCartItems(){
+        let cartItems = localStorage.getItem("myCart");
+        cartItems = JSON.parse(cartItems);
+        let cartElements = $(".cartelements");
+        if(cartItems && cartElements){
+            console.log("running");
         }
+
+    }*/ 
+
+
+    
+
+    //----kosárba helyezés----
+
+    //vigyázok rád, nehogy 0-val kezdd az inputod 
+    $(".termek input").keyup(function(){
+        var value = $(this).val();
+        value = value.replace(/^(0*)/,"");
+        $(this).val(value);
     });
+
+    //kosárba helyezés gomb animációja
+    $('.termek').on('mouseenter','.megvesz',function(){
+        $(this).find('img').attr('src',' ');
+        $(this).text('Kosárba tesz');
+     })
+     $('.termek').on('mouseleave','.megvesz',function(){
+         $(this).text('');
+         $(this).html('<img src ="images/carticon.png"></img>');
+     })
+
+    //local storageban elhelyezés
+    $('.termek').on('click','.megvesz',function(){
+       
+        if($(this).prev().val()>$(this).prev().attr('max')){
+            alert('Ebből a termékből nincs ennyi készleten!');
+        }
+        else if($(this).prev().val()<=0){
+            alert('Ez így nem fog működni! ☺');
+        }
+        else{
+            let index = $(this).parent().data('id');
+            console.log(index);
+            cart.push(items[index]);
+            console.table([cart[index]]);
+            localStorage.setItem("CartList", JSON.stringify(cart));
+            localStorage.clear();
+        }
+    })
 });
