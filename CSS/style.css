@@ -180,7 +180,7 @@ footer{
 .megvesz:hover{
     background-color:rgba(0, 129, 168, 0.5);
 }
-.megvesz{
+.megvesz, .disabled{
     height: 31.5px;
     width:25px;
     float:right;
@@ -195,7 +195,13 @@ footer{
     border-radius:10px 0px 10px 0px;
     transition: 0.2s;
 }
-.megvesz img{
+.disabled{
+    cursor: auto;
+}
+.disabled:hover{
+    background-color:rgba(255,0,0,0.5);
+}
+.megvesz img, .disabled img{
     height: 25px;
     width: 25px;
     margin: 3.25px auto;
@@ -204,7 +210,9 @@ footer{
 .megvesz:hover{
     width:70px;
 }
-
+.disabled{
+    background-color: rgba(48, 48, 48, 0.692);
+}
 /*termék hozzáadása*/
 .termekplusz{
     background-color: rgb(0,39,51);
@@ -324,5 +332,7 @@ footer{
 
 
 @media screen and (max-width:600px){
-
+    .cart{
+        font-size:2vw;
+    }
 }
