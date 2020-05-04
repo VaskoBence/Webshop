@@ -102,15 +102,14 @@ $(function(){
         let index;
         let id = $(this).parent().data('id');    // a div id-je
         for(let i=0;i<items.length;i++){
+            console.log(items[i].id);
             if(id === items[i].id){
                 index = i;
             }
         }
-        let itemid = $(this).parent().find('h5').text();   //itemID
         let szerepelt = true;
         // ha többet írsz be, mint amennyi készleten van, akkor hibaüzenet
         if(parseInt($(this).prev().val())>parseInt($(this).prev().attr('max'))){
-            console.log(qt, max);
             alert('Ebből a termékből nincs ennyi készleten!');
         }
         // ha 0-t vagy kevesebbet írsz be, akkor is hibaüzenet
@@ -122,7 +121,7 @@ $(function(){
             if(cartstorage!=null){
                 let i=0;
                 while(i<cart.length){
-                    if(itemid==cart[i].itemID){
+                    if(id==cart[i].id){
                         alert("Ez a termék már szerepel a kosaradban! 😔");
                         szerepelt = false;
                     }
@@ -150,8 +149,13 @@ $(function(){
                         items.splice(i,1);
                     }
                 }
+                for(let i=0;i<cart.length;i++){
+                    if(cart[i].id === id){
+                        cart.splice(i,1);
+                    }
+                }
                 localStorage.setItem('ItemList', JSON.stringify(items));
-                
+                localStorage.setItem('CartList', JSON.stringify(cart));
             }
         })
 
@@ -170,6 +174,8 @@ $(function(){
                 
             }
         })
+
+
     // frissítés gomb
         $(".carttermek").on('click','.cart-qt button',function(){
             let qt = parseInt($(this).prev().val());
@@ -201,7 +207,9 @@ $(function(){
             }
             $('.cartfooter div').text('Összesen: ' +ossz+ ' Ft');
         })
-        // vásárlás gomb
+
+
+    // vásárlás gomb
         $('.cartfooter button').on('click', function(){
             if(confirm("Biztos meg szeretnéd vásárolni?")){
             alert("Köszönjük a vásárlást!");
@@ -212,7 +220,7 @@ $(function(){
                     }
                 }
             }
-            location.reload();
+            location.reload(); //oldal újra betöltése
             localStorage.removeItem("CartList");
             localStorage.setItem('ItemList', JSON.stringify(items));         
         }

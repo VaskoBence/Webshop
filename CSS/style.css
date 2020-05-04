@@ -17,18 +17,18 @@ body{
 }
 header{
     width: 100%;
-    height: 50px;
+    height: 75px;
     background-color: rgba(0, 0, 0, 0.8);
 }
 nav{
     display:flex;
     float:left;
-    height:50px;
+    height:75px;
     font-size: 20px;
     text-align:center;
 }
 nav a{
-    padding:15px 30px;
+    padding:25px 30px;
     width:40%;
 }
 nav a:hover{
@@ -239,7 +239,7 @@ footer{
 /* kosár */
 .kosar{
     width:120px;
-    height:50px;
+    height:75px;
     float:right;
     font-size:20px;
     color:white;
@@ -247,7 +247,7 @@ footer{
     text-align:center;
 }
 .kosar div{
-    padding: 10px 0px;
+    padding: 25px 0px;
 }
 .kosar img{
     vertical-align:middle;
