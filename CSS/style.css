@@ -271,7 +271,7 @@ footer{
     margin: 50px auto;
     padding:50px 0px;
 }
-.cartheader{
+.cartheader, .cartfooter{
     width: 100%;
     max-width:850px;
     display:flex;
@@ -281,23 +281,60 @@ footer{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
+.cartfooter{
+    background-color: rgba(0, 53, 70);
+}
+.cartfooter div{
+    width: 97%;
+    text-align:right;
+    padding: 10px 6%;
+    font-weight:normal;
+}
+.cartfooter button{
+    color:white;
+    width: 10%;
+    padding: 10px ;
+    background-color: rgba(143, 159, 175, 0.5);
+    border: 0;
+}
+.cartfooter button:hover{
+    background-color: rgba(255, 255, 255,0.5);
+    cursor:pointer;
+}
 /* Fejléc*/
 .cart-name{
+    padding: 0px 5px;
     width:20%;
 }
 .cart-id{
     width:20%;
 }
 .cart-price{
-    width:20%;
+    width:19%;
     display:flex;
 }
 .cart-qt{
     width:20%;
     display:flex;
 }
+
+.cart-qt input{
+    width: 50%;
+}
+.cart-qt button{
+    color:white;
+    width: 30%;
+    margin: 0px 10%;
+    border: 0;
+    border-radius: 5px;
+    background-color:grey;
+}
+.cart-qt button:hover{
+    background-color:rgba(143, 159, 175, 1);
+    cursor:pointer;
+}
 .cart-total{
-    width:20%;
+    width:18%;
     display:flex;
 }
 .cartelements{
@@ -317,11 +354,34 @@ footer{
     display:flex;
     justify-content: space-around;
     align-items:center;
-    padding: 10px 0;
+    padding: 10px 0px;
     border-bottom: 1px solid lightgray;
 }
-
-
+/*törlés gomb*/
+.delete{
+    position: absolute;
+    top:5px;
+    right:5px;
+    height:40px;
+    width:40px;
+    border-radius:5px;
+}
+.delete img, .cartdelete img{
+    opacity:0.65;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0,0,0,0);
+   
+}
+.delete img:hover, .cartdelete img:hover{
+    opacity:0.9;
+    cursor:pointer;
+}
+.cartdelete{
+    padding: 0px 5px;
+    display:flex;
+    width: 3%;
+}
 
 
 
@@ -334,5 +394,8 @@ footer{
 @media screen and (max-width:600px){
     .cart{
         font-size:2vw;
+    }
+    button{
+        font-size:1vw;
     }
 }
