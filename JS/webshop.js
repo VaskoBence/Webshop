@@ -20,10 +20,7 @@ $(function(){
         let container = $('.container');
         if(storage != null){
             for(let i=0;i<items.length;i++){
-                container.append("<div class='termek' data-id="+i+"><img src='images/tree1.png'><h2>"+items[i].name+"<span class='tooltip'></span></h2><h5>"+items[i].itemID+"</h5><h3>"+items[i].price+" Ft</h3><p>"+items[i].description+"</p><div>Raktáron: <span class='stock'>"+items[i].quantity+"</span></div><div>Vásárlás:</div><input class='qt' type='number'  value ='0' min='0' max="+items[i].quantity+"><div class="+(items[i].quantity==0 ? "disabled" :"megvesz")+"><img src ='images/carticon.png'></div></div>");
-                if(items[i].quantity){
-
-                }
+                container.append("<div class='termek' data-id="+items[i].id+"> <div  class='delete'><img src='images/binicon.png'></div><img src='images/tree1.png'><h2>"+items[i].name+"<span class='tooltip'></span></h2><h5>"+items[i].itemID+"</h5><h3>"+items[i].price+" Ft</h3><p>"+items[i].description+"</p><div>Raktáron: <span class='stock'>"+items[i].quantity+"</span></div><div>Vásárlás:</div><input class='qt' type='number'  value ='0' min='0' max="+items[i].quantity+"><div class="+(items[i].quantity==0 ? "disabled" :"megvesz")+"><img src ='images/carticon.png'></div></div>");
             }    
         }
     container.append("<div class='termekplusz'><a href ='item_upload.html'><img src='images/plus.png'></a><h2>Termék hozzáadása</h2></div>");    
@@ -37,11 +34,17 @@ $(function(){
         let cartelements = $('.cartelements');
         if(cart != null && cart.length!=0){
             for(i=0;i<cart.length;i++){
-                cartelements.append("<div class='carttermek'> <div class='cart-name'>"+cart[i].name+"</div> <div class ='cart-id'>"+cart[i].itemID+"</div> <div class='cart-price'>"+cart[i].price+" Ft</div> <div class='cart-qt'>"+cart[i].quantity+" </div> <div class='cart-total'>"+(cart[i].quantity*cart[i].price)+"</div></div>");
+                cartelements.append("<div class='carttermek' data-id="+cart[i].id+"> <div class='cart-name'>"+cart[i].name+"</div> <div class ='cart-id'>"+cart[i].itemID+"</div> <div class='cart-price'>"+cart[i].price+" Ft</div> <div class='cart-qt'><input value ="+cart[i].quantity+" max ="+cart[i].quantity+" type='number'><button>Frissít</button></div> <div class='cart-total'>"+(cart[i].quantity*cart[i].price)+" Ft</div><div  class='cartdelete'><img src='images/binicon.png'></div></div>");
             }
+            cartelements.append();
         }else{
         cartelements.append("<div class='carttermek'>Jelenleg üres a kosarad!</div>");
         }
+        let ossz = 0;
+        for(let i=0;i<cart.length;i++){
+            ossz=ossz+(cart[i].quantity*cart[i].price);
+        }
+        $('.cartfooter div').text('Összesen: ' +ossz+ ' Ft');
     }  
     cartLoad();
     
@@ -72,6 +75,15 @@ $(function(){
         }
         $(this).val(value);
     });
+    $(".cart-qt input").keyup(function(){
+        let value = $(this).val();
+        value = value.replace(/^(-1*)/,""); 
+        max = $(this).attr('max');
+        if(parseInt(value)>parseInt(max)){
+            value = max;
+        }
+        $(this).val(value);
+    });
 
 
     //kosárba helyezés gomb animációja
@@ -87,7 +99,13 @@ $(function(){
 
     //a termék elhelyezése local storageban (CartList)
     $('.termek').on('click','.megvesz',function(){
-        let index = $(this).parent().data('id');    // a div index-e
+        let index;
+        let id = $(this).parent().data('id');    // a div id-je
+        for(let i=0;i<items.length;i++){
+            if(id === items[i].id){
+                index = i;
+            }
+        }
         let itemid = $(this).parent().find('h5').text();   //itemID
         let szerepelt = true;
         // ha többet írsz be, mint amennyi készleten van, akkor hibaüzenet
@@ -121,5 +139,83 @@ $(function(){
             }
         }   
     })
+
+    // termékek törlése (index.html, items)
+        $(".delete").on('click',function(){
+            let id = parseInt($(this).parent().attr('data-id'));
+            if(confirm("Biztosan törölni szeretnéd ezt az elemet?")){
+                $(this).parent().remove();
+                for(let i=0;i<items.length;i++){
+                    if(items[i].id === id){
+                        items.splice(i,1);
+                    }
+                }
+                localStorage.setItem('ItemList', JSON.stringify(items));
+                
+            }
+        })
+
+
+    // törlés kosárból  (cart.html, cart)
+        $(".cartdelete").on('click',function(){
+            let id = parseInt($(this).parent().attr('data-id'));
+            if(confirm("Biztosan törölni szeretnéd a kosárból ezt az elemet?")){
+                $(this).parent().remove();
+                for(let i=0;i<cart.length;i++){
+                    if(cart[i].id === id){
+                        cart.splice(i,1);
+                    }
+                }
+                localStorage.setItem('CartList', JSON.stringify(cart));
+                
+            }
+        })
+    // frissítés gomb
+        $(".carttermek").on('click','.cart-qt button',function(){
+            let qt = parseInt($(this).prev().val());
+            if(qt === 0){
+                //ugyanaz mint a törlés
+                let id = parseInt($(this).parent().parent().attr('data-id'));
+                $(this).parent().parent().remove();
+                for(let i=0;i<cart.length;i++){
+                    if(cart[i].id === id){
+                        cart.splice(i,1);
+                    }
+                }
+                localStorage.setItem('CartList', JSON.stringify(cart));
+            }
+            else if(qt>0){
+                let id = parseInt($(this).parent().parent().attr('data-id'));
+                for(let i=0;i<cart.length;i++){
+                    if(cart[i].id === id){
+                        cart[i].quantity = qt;
+                        let ar = cart[i].price;
+                        $(this).parent().next().text( (ar*qt)+" Ft");
+                    }
+                }
+                localStorage.setItem('CartList', JSON.stringify(cart));
+            }
+            let ossz = 0;
+            for(let i=0;i<cart.length;i++){
+                ossz=ossz+(cart[i].quantity*cart[i].price);
+            }
+            $('.cartfooter div').text('Összesen: ' +ossz+ ' Ft');
+        })
+        // vásárlás gomb
+        $('.cartfooter button').on('click', function(){
+            if(confirm("Biztos meg szeretnéd vásárolni?")){
+            alert("Köszönjük a vásárlást!");
+            for(let i=0;i<cart.length;i++){
+                for(let j=0;j<items.length;j++){
+                    if(items[j].id === cart[i].id){
+                        items[j].quantity = (items[j].quantity - cart[i].quantity);
+                    }
+                }
+            }
+            location.reload();
+            localStorage.removeItem("CartList");
+            localStorage.setItem('ItemList', JSON.stringify(items));         
+        }
+        })
 });
 

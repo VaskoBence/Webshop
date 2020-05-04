@@ -7,7 +7,8 @@ storage == null ? (items = []) : (items = JSON.parse(storage));
 // Sumbit item
 const addItem = (e) => {
 	e.preventDefault();
-
+	let currentDate = new Date();
+	let id = currentDate.getTime();
 	let inputName = document.getElementById("name").value;
 	let inputQuantity = document.getElementById("quantity").value;
 	let inputItemID = document.getElementById("itemID").value;
@@ -27,6 +28,7 @@ const addItem = (e) => {
 
 	// Adding the item to the items array
 	let item = {
+		id: id,
 		name: inputName,
 		quantity: inputQuantity,
 		itemID: inputItemID,
