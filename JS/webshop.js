@@ -12,7 +12,7 @@ $(function(){
             name: nevek[i],
             quantity: ((Math.floor(Math.random() * 50) + 1)*10),
             itemID: ("#"+(Math.floor(Math.random() * 1000) + 0)),
-            price: (((Math.floor(Math.random() * 5000) + 1)*10)-1),
+            price: (((Math.floor(Math.random() * 100) + 1)*10)-1),
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu venenatis ante, at rhoncus purus. Donec quis placerat leo."
             }
         startitems.push(item);
