@@ -3,8 +3,22 @@ $(function(){
     //localstorage tömbök, ellenőrzi hogy üres-e 
     let storage = localStorage.getItem("ItemList");
     let items;
-
-    storage == null ? (items = []) : (items = JSON.parse(storage));
+    //
+    let startitems = [];
+    for(let i=0;i<10;i++){
+        let currentDate = new Date();
+        let item ={
+            id: (currentDate.getTime()+i),
+            name: ("Termék"+(i+1)),
+            quantity: ((Math.floor(Math.random() * 50) + 1)*10),
+            itemID: ("#"+(Math.floor(Math.random() * 1000) + 0)),
+            price: (((Math.floor(Math.random() * 5000) + 1)*10)-1),
+            description: (Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5))
+            }
+        startitems.push(item);
+    }
+    localStorage.setItem('ItemList', JSON.stringify(startitems));
+    storage == null ? (items = startitems) : (items = JSON.parse(storage));
 
     let cartstorage = localStorage.getItem("CartList");
     let cart;
@@ -20,7 +34,14 @@ $(function(){
         let container = $('.container');
         if(storage != null){
             for(let i=0;i<items.length;i++){
-                container.append("<div class='termek' data-id="+items[i].id+"> <div  class='delete'><img src='images/binicon.png'></div><img src='images/tree1.png'><h2>"+items[i].name+"<span class='tooltip'></span></h2><h5>"+items[i].itemID+"</h5><h3>"+items[i].price+" Ft</h3><p>"+items[i].description+"</p><div>Raktáron: <span class='stock'>"+items[i].quantity+"</span></div><div>Vásárlás:</div><input class='qt' type='number'  value ='0' min='0' max="+items[i].quantity+"><div class="+(items[i].quantity==0 ? "disabled" :"megvesz")+"><img src ='images/carticon.png'></div></div>");
+                // néhány random kép
+                if(items[i].name.contains()){
+
+                }
+                else if(items[i].name.contains()){
+                    
+                }
+                container.append("<div class='termek' data-id="+items[i].id+"> <div  class='delete'><img src='images/binicon.png'></div><img src="+kep+"><h2>"+items[i].name+"<span class='tooltip'></span></h2><h5>"+items[i].itemID+"</h5><h3>"+items[i].price+" Ft</h3><p>"+items[i].description+"</p><div>Raktáron: <span class='stock'>"+items[i].quantity+"</span></div><div>Vásárlás:</div><input class='qt' type='number'  value ='0' min='0' max="+items[i].quantity+"><div class="+(items[i].quantity==0 ? "disabled" :"megvesz")+"><img src ='images/carticon.png'></div></div>");
             }    
         }
     container.append("<div class='termekplusz'><a href ='item_upload.html'><img src='images/plus.png'></a><h2>Termék hozzáadása</h2></div>");    
@@ -224,6 +245,39 @@ $(function(){
             localStorage.removeItem("CartList");
             localStorage.setItem('ItemList', JSON.stringify(items));         
         }
+        })
+
+        //kereső funkció
+        $('#searchbar input').keyup(function(){
+            let input = $(this).val().toLowerCase();  
+            for (i = 0; i < items.length; i++) {  
+                if (!items[i].name.toLowerCase().includes(input)) {
+                   li= document.getElementsByClassName('termek');
+                   li[i].style.display = "none";
+                }
+                else { 
+                    li[i].style.display = "block";              
+                } 
+            } 
+        })
+
+        
+        // MARADJANAK OTTHON
+        let audioElement = document.createElement('audio'); // audio változó
+        audioElement.setAttribute('src', 'maradjotthon.mp3');    //audiofájl megadása  
+        $('#pause').on('click',function(){  
+            $(this).css('background-color','rgba(255,0,0,0.5)');
+            $('#play').css('background-color','rgba(0,255,0,0)');
+            audioElement.pause();   // háttérszín, zene szüneteltetése
+        })
+        $('#play').on('click',function(){
+            $(this).css('background-color','rgba(0,255,0,0.5)');
+            $('#pause').css('background-color','rgba(255,0,0,0)');
+            audioElement.play();    //háttérszín, zene lejátszása
+        })
+        $('#volume').on('change',function(){
+            let val = $(this).val();
+            audioElement.volume=val/100;
         })
 });
 
