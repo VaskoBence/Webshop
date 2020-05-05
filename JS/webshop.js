@@ -3,26 +3,27 @@ $(function(){
     //localstorage tömbök, ellenőrzi hogy üres-e 
     let storage = localStorage.getItem("ItemList");
     let items;
-    //
+    let nevek = ["Wc papír","Kéz fertőtlenítő","Orvosi maszk","Kesztyű","Kenyér","Gyógyszer","Menőbb wc papír","Szappan","Tej","kéz hidratáló"];
+    // kezdő tömb, ha üres az egész
     let startitems = [];
     for(let i=0;i<10;i++){
-        let currentDate = new Date();
         let item ={
-            id: (currentDate.getTime()+i),
-            name: ("Termék"+(i+1)),
+            id: i,
+            name: nevek[i],
             quantity: ((Math.floor(Math.random() * 50) + 1)*10),
             itemID: ("#"+(Math.floor(Math.random() * 1000) + 0)),
             price: (((Math.floor(Math.random() * 5000) + 1)*10)-1),
-            description: (Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5))
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu venenatis ante, at rhoncus purus. Donec quis placerat leo."
             }
         startitems.push(item);
     }
-    localStorage.setItem('ItemList', JSON.stringify(startitems));
-    storage == null ? (items = startitems) : (items = JSON.parse(storage));
+    storage == null ? (items=startitems) : (items = JSON.parse(storage));
+    localStorage.setItem('ItemList', JSON.stringify(items));
+
+
 
     let cartstorage = localStorage.getItem("CartList");
     let cart;
- 
     cartstorage == null ? (cart = []) : (cart = JSON.parse(cartstorage));
     
     //----oldalak betöltése storageból----
@@ -35,12 +36,36 @@ $(function(){
         if(storage != null){
             for(let i=0;i<items.length;i++){
                 // néhány random kép
-                if(items[i].name.contains()){
-
+                let kep = "images/placeholder.jpg";
+                console.log(items[i].name);
+                if(items[i].name.toLowerCase().includes("maszk")){
+                    kep = "images/maszk.jpg";
                 }
-                else if(items[i].name.contains()){
-                    
+                else if(items[i].name.toLowerCase().includes("menőbb")){
+                    kep = "images/menobbwc.jpg";
                 }
+                else if(items[i].name.toLowerCase().includes("wc")){
+                    kep = "images/wcpapir.jpg";
+                }
+                else if(items[i].name.toLowerCase().includes("kéz")){
+                    kep = "images/kezfert.jpg";
+                }
+                else if(items[i].name.toLowerCase().includes("kesztyű")){
+                    kep = "images/kesztyu.jpg";
+                }
+                else if(items[i].name.toLowerCase().includes("gyógyszer")){
+                    kep = "images/gyogyszer.jpg";
+                }
+                else if(items[i].name.toLowerCase().includes("kenyér")){
+                    kep = "images/kenyer.jpg";
+                }
+                else if(items[i].name.toLowerCase().includes("szappan")){
+                    kep = "images/szappan.jpg";
+                }
+                else if(items[i].name.toLowerCase().includes("tej")){
+                    kep = "images/tej.jpg";
+                }
+                
                 container.append("<div class='termek' data-id="+items[i].id+"> <div  class='delete'><img src='images/binicon.png'></div><img src="+kep+"><h2>"+items[i].name+"<span class='tooltip'></span></h2><h5>"+items[i].itemID+"</h5><h3>"+items[i].price+" Ft</h3><p>"+items[i].description+"</p><div>Raktáron: <span class='stock'>"+items[i].quantity+"</span></div><div>Vásárlás:</div><input class='qt' type='number'  value ='0' min='0' max="+items[i].quantity+"><div class="+(items[i].quantity==0 ? "disabled" :"megvesz")+"><img src ='images/carticon.png'></div></div>");
             }    
         }
