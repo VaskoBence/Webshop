@@ -461,9 +461,10 @@ footer img:hover{
 .maradjotthon p{
     width:25%;
     min-width: 400px;
-    margin: auto;
+    float: left;
+    margin: 20px;
     padding: 20px 0px;
-    background-color:rgba(107, 107, 107, 0.8);
+    background-color:rgba(0, 0, 0, 0.4);
     text-align: center;
     border-radius:25px;
     font-family: 'Times New Roman', Times, serif;
