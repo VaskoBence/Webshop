@@ -366,6 +366,13 @@ footer img:hover{
     background-color: rgba(255, 255, 255,0.5);
     cursor:pointer;
 }
+.cartfooter button img{
+    display:none;
+    margin: auto;
+    width: 15px;
+    height: 17px;
+    padding: 0px;
+}
 /* Fejléc*/
 .cart-name{
     padding: 0px 5px;
@@ -421,6 +428,12 @@ footer img:hover{
     align-items:center;
     padding: 10px 0px;
     border-bottom: 1px solid lightgray;
+}
+.carttermek button img{
+    display:none;;
+    width:15px;
+    height:15px;
+    margin:auto;
 }
 /*törlés gomb*/
 .delete{
@@ -507,4 +520,18 @@ footer img:hover{
     button{
         font-size:1vw;
     }
+}
+@media screen and (max-width:900px){
+.cartfooter button img{
+    display:block;
+}
+.cartfooter button span{
+    display: none;
+}
+.carttermek button img{
+    display:block;
+}
+.carttermek button span{
+    display:none;
+}
 }
