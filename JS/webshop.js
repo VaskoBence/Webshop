@@ -79,7 +79,7 @@ $(function(){
         let cartelements = $('.cartelements');
         if(cart != null && cart.length!=0){
             for(i=0;i<cart.length;i++){
-                cartelements.append("<div class='carttermek' data-id="+cart[i].id+"> <div class='cart-name'>"+cart[i].name+"</div> <div class ='cart-id'>"+cart[i].itemID+"</div> <div class='cart-price'>"+cart[i].price+" Ft</div> <div class='cart-qt'><input value ="+cart[i].quantity+" max ="+cart[i].quantity+" type='number'><button>Frissít</button></div> <div class='cart-total'>"+(cart[i].quantity*cart[i].price)+" Ft</div><div  class='cartdelete'><img src='images/binicon.png'></div></div>");
+                cartelements.append("<div class='carttermek' data-id="+cart[i].id+"> <div class='cart-name'>"+cart[i].name+"</div> <div class ='cart-id'>"+cart[i].itemID+"</div> <div class='cart-price'>"+cart[i].price+" Ft</div> <div class='cart-qt'><input value ="+cart[i].quantity+" max ="+cart[i].quantity+" type='number'><button><span>Frissít</span><img src='images/refresh.png'></button></div> <div class='cart-total'>"+(cart[i].quantity*cart[i].price)+" Ft</div><div  class='cartdelete'><img src='images/binicon.png'></div></div>");
             }
             cartelements.append();
         }else{
