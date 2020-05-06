@@ -3,7 +3,9 @@
 This is a simple Webshop using JavaScript, html, css.
 The theme is COVID-19, the language is hungarian.
 
-Features: -Cart (add to cart, delete, buy, rewrite the quantity you want to buy, using localStorage,)
+Features:
+
+          -Cart (add to cart, delete, buy, rewrite the quantity you want to buy, using localStorage,)
 
           -Item list (if the list is empty, it fills up with 10 premade items, otherwise it's loaded from localStorage,
             you can delete items as well, and put items into a cart)
