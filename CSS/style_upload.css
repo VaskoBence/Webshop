@@ -8,10 +8,11 @@
 }
 
 body {
-	background: url("../images/background_2.jpg");
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
+	background: url("../images/background2.png");
+	background-color: rgba(0, 95, 124, 0.8);
+	background-position: top-left;
+	background-attachment: fixed;
+	background-size: 20%;
 	height: 100vh;
 	display: flex;
 	justify-content: center;
