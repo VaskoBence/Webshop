@@ -15,7 +15,7 @@ Features:
           -Item upload (you can upload your own items, with these properties: name, quantity, itemID, price, description,
            and an automatically generated id using currentTime, you can also delete the localStorage from that page)
            
-          -Audio(on kapcsolat.html, you can listen to Győrfi Pál's speech)
+          -on kapcsolat.html, you can listen to Győrfi Pál's speech :D
 
 The products have placeholder images, except for some with keywords, like "wc papír".         
 The webshop doesn't have login feature, so you're kind of like an admin and a user at the same time. 
