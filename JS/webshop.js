@@ -17,7 +17,7 @@ $(function(){
             }
         startitems.push(item);
     }
-    storage == null ? (items=startitems) : (items = JSON.parse(storage));
+    storage == null ? (items=startitems,  location.reload()) : (items = JSON.parse(storage));
     localStorage.setItem('ItemList', JSON.stringify(items));
 
 
@@ -37,7 +37,6 @@ $(function(){
             for(let i=0;i<items.length;i++){
                 // néhány random kép
                 let kep = "images/placeholder.jpg";
-                console.log(items[i].name);
                 if(items[i].name.toLowerCase().includes("maszk")){
                     kep = "images/maszk.jpg";
                 }
@@ -275,9 +274,9 @@ $(function(){
         //kereső funkció
         $('#searchbar input').keyup(function(){
             let input = $(this).val().toLowerCase();  
+            let li= document.getElementsByClassName('termek');
             for (i = 0; i < items.length; i++) {  
                 if (!items[i].name.toLowerCase().includes(input)) {
-                   li= document.getElementsByClassName('termek');
                    li[i].style.display = "none";
                 }
                 else { 
