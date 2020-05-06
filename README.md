@@ -1,6 +1,7 @@
 # Webshop
 
 This is a simple Webshop using JavaScript, html, css.
+
 The theme is COVID-19, the language is hungarian.
 
 Features:
@@ -17,5 +18,6 @@ Features:
            
           -on kapcsolat.html, you can listen to Győrfi Pál's speech :D
 
-The products have placeholder images, except for some with keywords, like "wc papír".         
+The products have placeholder images, except for some with keywords, like "wc papír".  
+
 The webshop doesn't have login feature, so you're kind of like an admin and a user at the same time. 
